@@ -6,8 +6,7 @@ export default class FoodTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tableHead: ['Food', 'Head2', 'Head3', 'Head4', 'Head5', 'Head6', 'Head7', 'Head8', 'Head9'],
-      widthArr: [40, 60, 80, 100, 120, 140, 160, 180, 200]
+      tableHead: ['Food', 'Head2', 'Head3'],
     }
   }
 
@@ -16,7 +15,7 @@ export default class FoodTable extends Component {
     const tableData = [];
     for (let i = 0; i < 30; i += 1) {
       const rowData = [];
-      for (let j = 0; j < 9; j += 1) {
+      for (let j = 0; j < 3; j += 1) {
         rowData.push(`${i}${j}`);
       }
       tableData.push(rowData);
@@ -27,7 +26,7 @@ export default class FoodTable extends Component {
         <ScrollView horizontal={true}>
           <View>
             <Table borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
-              <Row data={state.tableHead} widthArr={state.widthArr} style={styles.header} textStyle={styles.text}/>
+              <Row data={state.tableHead}  style={styles.header} textStyle={styles.text}/>
             </Table>
             <ScrollView style={styles.dataWrapper}>
               <Table borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
