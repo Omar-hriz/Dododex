@@ -8,12 +8,12 @@ export default function Header(props) {
     const [isVisible, setIsVisible] = useState(false)
     return (
 
-        <View style={myStyles.container}>
+        <View style={[myStyles.container,props.style]}>
 
             <TouchableOpacity style={myStyles.buttonContainer} onPress={() => setIsVisible(true)}>
 
                 <Image
-                    style={myStyles.menuButton}
+                    style={[myStyles.menuButton,props.marginImage]}
                     source={{ uri: "https://www.dododex.com/media/logo-small.png" }}
                     resizeMode="contain"
                 />
@@ -42,7 +42,7 @@ export default function Header(props) {
 
                 </View>
             </Modal>
-            <Text style={myStyles.title}>Dododex</Text>
+            <Text style={[myStyles.title,props.marginTitle]}>Dododex</Text>
         </View>
     )
 }

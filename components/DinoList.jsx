@@ -2,6 +2,7 @@ import { View, TextInput, StyleSheet } from 'react-native'
 import React from 'react'
 import CustomButton from './CustomButton';
 import { Dimensions } from 'react-native';
+import Header from './Header';
 
 const screenDimensions = Dimensions.get('screen');
 

@@ -2,8 +2,8 @@ import { View, StyleSheet, Modal, TextInput } from 'react-native'
 import React from 'react'
 import Header from './Header';
 import { Dimensions, TouchableOpacity, Image, Text } from 'react-native';
-import { Button } from 'react-native';
 import FoodTable from './FoodTable';
+import AddButton from './AddButton';
 
 const screenDimensions = Dimensions.get('screen');
 
@@ -11,7 +11,11 @@ export default function TameDino(props) {
     return (
         <Modal visible={props.tameDinoVisisble}>
             <View style={myStyles.container}>
-                <Header />
+                <Header 
+                style={{height:screenDimensions.height * 0.1}} 
+                marginImage={{marginTop: screenDimensions.height * 0.01}}
+                marginTitle={{marginTop: screenDimensions.height * 0.005}}
+                />
 
                 <TouchableOpacity style={myStyles.buttoncontainer}>
                     <Image
@@ -23,15 +27,14 @@ export default function TameDino(props) {
 
                 <View>
                     <TextInput style={myStyles.input} />
-                    <Button title='Calculate' style={myStyles.calculate} />
+                   <AddButton content="Calculate"/>
                 </View>
+
                 <View style={myStyles.textContainer}>
-                    <Text style={myStyles.title}>Taming </Text>
+                    <Text style={myStyles.title}>Taming</Text>
                 </View>
-                <View>
-                    
-                </View>
-                <FoodTable />
+
+                <FoodTable content="123"/>
 
             </View>
         </Modal>
@@ -46,7 +49,6 @@ const myStyles = StyleSheet.create({
         color: '#7EB488',
     },
     container: {
-        flex: 1,
         flexDirection: "row",
         flexWrap: "wrap",
         backgroundColor: "#E3D985",
@@ -82,7 +84,10 @@ const myStyles = StyleSheet.create({
         margin: 10,
         borderWidth: 2,
         padding: 10,
-        color: "#ED6DBB2",
+        borderColor: '#E57A44',
+        color: "#7EB488",
+        fontWeight: "bold",
+        textAlign:"center",
         backgroundColor: "#E57A44",
         borderRadius: screenDimensions.height * 0.05,
     },

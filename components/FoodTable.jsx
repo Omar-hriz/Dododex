@@ -1,50 +1,70 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView ,Image,Text} from 'react-native';
 import { Table, TableWrapper, Row } from 'react-native-table-component';
+import { Dimensions } from 'react-native';
+
+const screenDimensions = Dimensions.get('screen');
 
 export default class FoodTable extends Component {
   constructor(props) {
     super(props);
+    const elementFood = (uri, name) => (
+      <View style={styles.elementcontainer}>
+        <Image
+          source={{ uri: uri }}
+          style={styles.image}
+          resizeMode="contain"
+        />
+        <Text style={styles.imageText}>{name}</Text>
+      </View>
+    );
+    const tableData = [];
+    for (let i = 0; i < 30; i += 1) {
+      const rowData = [];
+      for (let j = 0; j < 3; j += 1) {
+        if(j==0){
+          rowData.push(elementFood("https://www.dododex.com/media/item/Simple_Kibble.png","simple Kibble"));
+        }
+        else{
+          rowData.push(props.content);
+        }
+        
+      }
+      tableData.push(rowData);
+    }
     this.state = {
-      tableHead: ['Food', 'Head2', 'Head3'],
+      tableHead: ['Food', 'Max', 'Time'],
+      table:tableData
     }
   }
 
   render() {
     const state = this.state;
-    const tableData = [];
-    for (let i = 0; i < 30; i += 1) {
-      const rowData = [];
-      for (let j = 0; j < 3; j += 1) {
-        rowData.push(`${i}${j}`);
-      }
-      tableData.push(rowData);
-    }
+    const tableData =state.table
 
     return (
       <View style={styles.container}>
-        <ScrollView horizontal={true}>
-          <View>
-            <Table borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
-              <Row data={state.tableHead}  style={styles.header} textStyle={styles.text}/>
+        <View>
+          <Table borderStyle={{ borderWidth: 1, borderColor: '#E57A44' }}>
+            <Row data={state.tableHead} flexArr={[2, 1, 1]} style={styles.header} textStyle={styles.topText} />
+          </Table>
+          <ScrollView style={styles.dataWrapper}>
+            <Table borderStyle={{ borderWidth: 1, borderColor: '#E3D985' }}>
+              {
+                tableData.map((rowData, index) => (
+                  <Row
+                    flexArr={[2, 1, 1]}
+                    key={index}
+                    data={rowData}
+                    style={[styles.row]}
+                    textStyle={styles.text}
+                  />
+                ))
+              }
             </Table>
-            <ScrollView style={styles.dataWrapper}>
-              <Table borderStyle={{borderWidth: 1, borderColor: '#C1C0B9'}}>
-                {
-                  tableData.map((rowData, index) => (
-                    <Row
-                      key={index}
-                      data={rowData}
-                      widthArr={state.widthArr}
-                      style={[styles.row, index%2 && {backgroundColor: '#F7F6E7'}]}
-                      textStyle={styles.text}
-                    />
-                  ))
-                }
-              </Table>
-            </ScrollView>
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </View>
+
       </View>
     )
   }
@@ -52,20 +72,45 @@ export default class FoodTable extends Component {
 
 const styles = StyleSheet.create({
   container: {
-     flex: 1, 
-    padding: 16, 
+    padding: 16,
     paddingTop: 30,
-     backgroundColor: '#E3D985' },
-  header: {
-     height: 50, 
-     backgroundColor: '#537791' 
-    },
-  text: { textAlign: 'center', 
-  fontWeight: '100' },
-  dataWrapper: { 
-    marginTop: -1 
+    backgroundColor: '#E3D985'
   },
-  row: { height: 40, 
-    backgroundColor: '#E7E6E1' 
+  elementcontainer: {
+    flexDirection: "row",
+  },
+  header: {
+    height: screenDimensions.height * 0.065,
+    width: screenDimensions.width * 0.9,
+    backgroundColor: '#E57A44'
+  },
+  text: {
+    textAlign: 'center',
+    fontWeight: "bold",
+    fontSize: screenDimensions.width * 0.06,
+    color: '#7EB488',
+  },
+  imageText: {
+    textAlign: 'center',
+    fontWeight: "bold",
+    fontSize: screenDimensions.width * 0.055,
+    color: '#7EB488',
+  },
+  image: {
+    height: screenDimensions.height * 0.04,
+    width: screenDimensions.width * 0.08,
+},
+  topText: {
+    textAlign: 'center',
+    fontWeight: "bold",
+    fontSize: screenDimensions.width * 0.09,
+    color: '#7EB488',
+  },
+  dataWrapper: {
+    marginTop: -1
+  },
+  row: {
+    height: screenDimensions.height * 0.065,
+    backgroundColor: '#E3D985'
   }
 });

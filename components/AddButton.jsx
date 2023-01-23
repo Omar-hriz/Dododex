@@ -1,22 +1,32 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { Text, StyleSheet } from 'react-native'
 import React from 'react'
-import { Button } from 'react-native'
+import { TouchableOpacity } from 'react-native';
+import { Dimensions } from 'react-native';
+
+const screenDimensions = Dimensions.get('screen');
 
 export default function AddButton(props) {
     return (
-        <View style={buttonStyle.default} >
-            <Button title={props.content} onPress={props.onPress} />
-        </View>
+
+        <TouchableOpacity onPress={props.onPress} style={buttonStyle.default}>
+            <Text style={buttonStyle.title}>{props.content}</Text>
+        </TouchableOpacity>
+
     )
 }
 const buttonStyle = StyleSheet.create({
     default: {
-        height: "10vw",
-        width:"50vw",
         alignItems: 'center',
         justifyContent: 'center',
-        color: "dodgerblue",
         margin: 10,
-    padding: 10,
+        borderWidth: 2,
+        padding: 10,
+        backgroundColor: "#E57A44",
+        borderColor: '#E57A44'
+    },
+    title: {
+        fontSize: screenDimensions.width * 0.06,
+        fontWeight: "bold",
+        color: '#7EB488',
     },
 });
