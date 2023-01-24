@@ -26,18 +26,17 @@ const myStyles = StyleSheet.create({
     buttoncontainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 10,
         margin: 10,
-        height: screenDimensions.height * 0.4,
-        width: screenDimensions.width * 0.41,
+        height: screenDimensions.height * 0.2,
+        width: screenDimensions.width * 0.44,
     },
     image: {
-        height: screenDimensions.height * 0.15,
+        height: screenDimensions.height * 0.1,
         width: screenDimensions.width * 0.35,
     },
     First: {
         fontSize: screenDimensions.width * 0.056,
         fontWeight: "bold",
-        color: '#21130d',
+        color: '#7EB488',
     },
 });

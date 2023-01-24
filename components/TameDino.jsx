@@ -7,16 +7,11 @@ import AddButton from './AddButton';
 
 const screenDimensions = Dimensions.get('screen');
 
-export default function TameDino(props) {
+export default function TameDino({navigation}) {
     return (
-        <Modal visible={props.tameDinoVisisble}>
+       
             <View style={myStyles.container}>
-                <Header 
-                style={{height:screenDimensions.height * 0.1}} 
-                marginImage={{marginTop: screenDimensions.height * 0.01}}
-                marginTitle={{marginTop: screenDimensions.height * 0.005}}
-                />
-
+            <Header moveTameDione={() =>navigation.navigate("TameDione")} moveHome={() =>navigation.navigate("Home")}/>
                 <TouchableOpacity style={myStyles.buttoncontainer}>
                     <Image
                         source={{ uri: "https://www.dododex.com/media/creature/raptor.png" }}
@@ -37,7 +32,7 @@ export default function TameDino(props) {
                 <FoodTable content="123"/>
 
             </View>
-        </Modal>
+       
 
     )
 }

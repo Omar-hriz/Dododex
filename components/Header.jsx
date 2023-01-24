@@ -3,17 +3,19 @@ import React from 'react'
 import { useState } from 'react';
 import { Dimensions } from 'react-native';
 
+
 const screenDimensions = Dimensions.get('screen');
 export default function Header(props) {
     const [isVisible, setIsVisible] = useState(false)
+    
     return (
 
-        <View style={[myStyles.container,props.style]}>
+        <View style={[myStyles.container]}>
 
             <TouchableOpacity style={myStyles.buttonContainer} onPress={() => setIsVisible(true)}>
 
                 <Image
-                    style={[myStyles.menuButton,props.marginImage]}
+                    style={[myStyles.menuButton]}
                     source={{ uri: "https://www.dododex.com/media/logo-small.png" }}
                     resizeMode="contain"
                 />
@@ -32,17 +34,17 @@ export default function Header(props) {
                         />
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={props.dinoListHandler}>
+                    <TouchableOpacity onPress={props.moveHome}>
                         <Text style={myStyles.textButtonFirst}>Dino List</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={props.tameDinoHandler}>
+                    <TouchableOpacity onPress={props.moveTameDione}>
                         <Text style={myStyles.textButtonSecond}>Tame Dino</Text>
                     </TouchableOpacity>
 
                 </View>
             </Modal>
-            <Text style={[myStyles.title,props.marginTitle]}>Dododex</Text>
+            <Text style={[myStyles.title]}>Dododex</Text>
         </View>
     )
 }
