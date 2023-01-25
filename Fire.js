@@ -25,7 +25,7 @@ const db = getFirestore(app)
 
 export default class Fire {
   getDinos (callback) {
-    const q = query(collection(db, 'dinos'), orderBy('name', 'asc'))
+    const q = query(collection(db, 'Dinos'), orderBy('name', 'asc'))
     onSnapshot(q, snapshot => {
       let dinos = []
       snapshot.forEach(doc => {
@@ -36,14 +36,14 @@ export default class Fire {
   }
 
   addDino (dino) {
-    addDoc(collection(db, 'dinos'), dino)
+    addDoc(collection(db, 'Dinos'), dino)
   }
-
+S
   updateDino (dino) {
-    updateDoc(doc(db, 'dinos', dino.id), dino)
+    updateDoc(doc(db, 'Dinos', dino.id), dino)
   }
 
   deleteDino (dino) {
-    deleteDoc(doc(db, 'dinos', dino.id))
+    deleteDoc(doc(db, 'Dinos', dino.id))
   }
 }

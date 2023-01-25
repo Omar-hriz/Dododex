@@ -8,14 +8,9 @@ import { useEffect, useState } from 'react';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
-  const [dinos, setDinos] = useState([])
-  const [loading, setLoding] = useState(true)
-  let dino ={
-    "id":1,
-    "name":"Pteranodon",
-    "url":"https://www.dododex.com/media/creature/pteranodon.png"
-  }
-  
+  const [dinos, setDinos] = useState([]);
+  const [loading, setLoding] = useState(true);
+ 
   useEffect(() => {
     const base = new Fire();
     base.getDinos(dinos => {
@@ -23,8 +18,6 @@ export default function App() {
       setLoding(false); 
     })
   }, [])
-  const base = new Fire();
-base.addDino()
 
   return (
     <NavigationContainer>

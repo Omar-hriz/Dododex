@@ -9,13 +9,15 @@ import { useEffect, useState } from 'react';
 const screenDimensions = Dimensions.get('screen');
 
 export default function DinoList({handleUriChange, navigation }) {
-    const [dinos, setDinos] = useState([])
-    const [loading, setLoding] = useState(true)
-    const base = new Fire();
+    const [dinos, setDinos] = useState([]);
+    const [loading, setLoding] = useState(true);
+    const base =new Fire();
     base.getDinos(dinos => {
         setDinos(dinos);
         setLoding(false); 
       })
+
+      
     return (
         <View style={myStyles.container}>
             {handleUriChange == null ?
