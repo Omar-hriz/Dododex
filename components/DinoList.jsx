@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 
 const screenDimensions = Dimensions.get('screen');
 
-export default function DinoList({handleUriChange, navigation }) {
+export default function DinoList({handleUriChange, navigation,makeInvisible }) {
     const [dinos, setDinos] = useState([]);
     const [loading, setLoding] = useState(true);
     const base =new Fire();
@@ -16,7 +16,6 @@ export default function DinoList({handleUriChange, navigation }) {
         setDinos(dinos);
         setLoding(false); 
       })
-
       
     return (
         <View style={myStyles.container}>
@@ -30,10 +29,10 @@ export default function DinoList({handleUriChange, navigation }) {
 
                 <View style={myStyles.imageContainer}>
                     {dinos.map(dino => {
-                        <CustomButton name={dino.name} uri={dino.uri}/>
+                        <CustomButton event={()=>console.log(dino.name)} name={dino.name} uri={dino.uri}/>
                     })}
-                    <CustomButton name="Pteranodon" uri="https://www.dododex.com/media/creature/pteranodon.png" />
-                    <CustomButton name="Triceratops" uri="https://www.dododex.com/media/creature/triceratops.png" />
+                    <CustomButton makeInvisible={makeInvisible} event={handleUriChange} name="Pteranodon" uri="https://www.dododex.com/media/creature/pteranodon.png" />
+                    <CustomButton makeInvisible={makeInvisible} event={handleUriChange} name="Triceratops" uri="https://www.dododex.com/media/creature/triceratops.png" />
                 </View>
 
 

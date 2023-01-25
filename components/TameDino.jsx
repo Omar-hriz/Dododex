@@ -27,7 +27,7 @@ export default function TameDino({navigation}) {
                 </TouchableOpacity>
 
                 <Modal visible={isListVisible}>
-                    <DinoList handleUriChange={newUri => setUri(newUri)}/>
+                    <DinoList makeInvisible={()=>setisListVisible(false)} handleUriChange={newUri => setUri(newUri)}/>
                 </Modal>
 
                 <View>

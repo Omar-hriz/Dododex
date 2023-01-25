@@ -7,7 +7,11 @@ const screenDimensions = Dimensions.get('screen');
 export default function CustomButton(props) {
     return (
         <View style={myStyles.container}>
-            <TouchableOpacity style={myStyles.buttoncontainer} onPress={props.event}>
+            <TouchableOpacity style={myStyles.buttoncontainer} onPress={() => {
+                props.makeInvisible();
+                props.event(props.uri);
+            }
+            }>
                 <Image
                     source={{ uri: props.uri }}
                     style={myStyles.image}
