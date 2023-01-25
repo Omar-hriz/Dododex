@@ -24,26 +24,26 @@ const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
 
 export default class Fire {
-  getMovies (callback) {
-    const q = query(collection(db, 'movies'), orderBy('title', 'asc'))
+  getDinos (callback) {
+    const q = query(collection(db, 'dinos'), orderBy('name', 'asc'))
     onSnapshot(q, snapshot => {
-      let movies = []
+      let dinos = []
       snapshot.forEach(doc => {
-        movies.push({ id: doc.id, ...doc.data() })
+        dinos.push({ id: doc.id, ...doc.data() })
       })
-      callback(movies)
+      callback(dinos)
     })
   }
 
-  addMovie (movie) {
-    addDoc(collection(db, 'movies'), movie)
+  addDino (dino) {
+    addDoc(collection(db, 'dinos'), dino)
   }
 
-  updateMovie (movie) {
-    updateDoc(doc(db, 'movies', movie.id), movie)
+  updateDino (dino) {
+    updateDoc(doc(db, 'dinos', dino.id), dino)
   }
 
-  deleteMovie (movie) {
-    deleteDoc(doc(db, 'movies', movie.id))
+  deleteDino (dino) {
+    deleteDoc(doc(db, 'dinos', dino.id))
   }
 }

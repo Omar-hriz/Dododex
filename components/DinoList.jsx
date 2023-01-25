@@ -1,21 +1,42 @@
-import { View, TextInput, StyleSheet } from 'react-native'
+import { View, TextInput, StyleSheet, ScrollView } from 'react-native'
 import React from 'react'
 import CustomButton from './CustomButton';
 import { Dimensions } from 'react-native';
 import Header from './Header';
+import Fire from 'C:/Users/omarh/OneDrive/Documents/GitHub/Dododex/Fire';
+import { useEffect, useState } from 'react';
 
 const screenDimensions = Dimensions.get('screen');
 
-export default function DinoList({navigation}) {
+export default function DinoList({handleUriChange, navigation }) {
+    const [dinos, setDinos] = useState([])
+    const [loading, setLoding] = useState(true)
+    const base = new Fire();
+    base.getDinos(dinos => {
+        setDinos(dinos);
+        setLoding(false); 
+      })
     return (
         <View style={myStyles.container}>
-            <Header moveTameDione={() =>navigation.navigate("TameDione")} moveHome={() =>navigation.navigate("Home")}/>
+            {handleUriChange == null ?
+                <Header moveTameDione={() => navigation.navigate("TameDione")} moveHome={() => navigation.navigate("Home")} />
+                : null}
+
             <TextInput style={myStyles.input} />
-            <View style={myStyles.imageContainer}>
-                <CustomButton name="Pteranodon" uri="https://www.dododex.com/media/creature/pteranodon.png" />
-                <CustomButton name="Triceratops" uri="https://www.dododex.com/media/creature/triceratops.png" />
-                <CustomButton name="Raptor" uri="https://www.dododex.com/media/creature/raptor.png" />
-            </View>
+
+            <ScrollView >
+
+                <View style={myStyles.imageContainer}>
+                    {dinos.map(dino => {
+                        <CustomButton name={dino.name} uri={dino.uri}/>
+                    })}
+                    <CustomButton name="Pteranodon" uri="https://www.dododex.com/media/creature/pteranodon.png" />
+                    <CustomButton name="Triceratops" uri="https://www.dododex.com/media/creature/triceratops.png" />
+                </View>
+
+
+            </ScrollView>
+
         </View>
     )
 }
@@ -25,7 +46,7 @@ const myStyles = StyleSheet.create({
         width: screenDimensions.width * 0.9,
         margin: 10,
         borderWidth: 2,
-        textAlign:"center",
+        textAlign: "center",
         borderColor: '#E57A44',
         color: "#7EB488",
         backgroundColor: "#E57A44",
@@ -35,11 +56,11 @@ const myStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
-    backgroundColor:"#E3D985",
+        backgroundColor: "#E3D985",
     },
     imageContainer: {
         flex: 1,
-        zIndex:-1,
+        zIndex: -1,
         flexDirection: "row",
         flexWrap: "wrap"
     }

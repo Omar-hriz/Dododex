@@ -1,14 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+
 import DinoList from './components/DinoList';
-import Header from './components/Header';
 import TameDino from './components/TameDino';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Fire from './Fire';
+import { useEffect, useState } from 'react';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
+  const [dinos, setDinos] = useState([])
+  const [loading, setLoding] = useState(true)
+  let dino ={
+    "id":1,
+    "name":"Pteranodon",
+    "url":"https://www.dododex.com/media/creature/pteranodon.png"
+  }
+  
+  useEffect(() => {
+    const base = new Fire();
+    base.getDinos(dinos => {
+      setDinos(dinos);
+      setLoding(false); 
+    })
+  }, [])
+  const base = new Fire();
+base.addDino()
 
   return (
     <NavigationContainer>
@@ -16,13 +32,13 @@ export default function App() {
         <Stack.Screen
           name='Home'
           component={DinoList}
-          options={{headerShown:false}}
+          options={{ headerShown: false }}
         />
 
         <Stack.Screen
           name="TameDione"
           component={TameDino}
-         options={{headerShown:false}}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

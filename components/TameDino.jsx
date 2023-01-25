@@ -1,24 +1,34 @@
 import { View, StyleSheet, Modal, TextInput } from 'react-native'
+import { useState } from 'react';
 import React from 'react'
 import Header from './Header';
 import { Dimensions, TouchableOpacity, Image, Text } from 'react-native';
 import FoodTable from './FoodTable';
 import AddButton from './AddButton';
+import DinoList from './DinoList';
 
 const screenDimensions = Dimensions.get('screen');
 
 export default function TameDino({navigation}) {
+    const [isListVisible, setisListVisible] = useState(false)
+    const [uri, setUri] = useState("https://www.dododex.com/media/creature/raptor.png")
     return (
        
             <View style={myStyles.container}>
+
             <Header moveTameDione={() =>navigation.navigate("TameDione")} moveHome={() =>navigation.navigate("Home")}/>
-                <TouchableOpacity style={myStyles.buttoncontainer}>
+
+                <TouchableOpacity style={myStyles.buttoncontainer} onPress={() => setisListVisible(true)}>
                     <Image
-                        source={{ uri: "https://www.dododex.com/media/creature/raptor.png" }}
+                        source={{ uri: uri }}
                         style={myStyles.image}
                         resizeMode="contain"
                     />
                 </TouchableOpacity>
+
+                <Modal visible={isListVisible}>
+                    <DinoList handleUriChange={newUri => setUri(newUri)}/>
+                </Modal>
 
                 <View>
                     <TextInput style={myStyles.input} />

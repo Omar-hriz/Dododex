@@ -28,7 +28,7 @@ const myStyles = StyleSheet.create({
         justifyContent: 'center',
         margin: 10,
         height: screenDimensions.height * 0.2,
-        width: screenDimensions.width * 0.44,
+        width: screenDimensions.width * 0.441,
     },
     image: {
         height: screenDimensions.height * 0.1,
