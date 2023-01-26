@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView ,Image,Text} from 'react-native';
+import { StyleSheet, View, ScrollView, Image, Text } from 'react-native';
 import { Table, TableWrapper, Row } from 'react-native-table-component';
 import { Dimensions } from 'react-native';
 
@@ -19,28 +19,31 @@ export default class FoodTable extends Component {
       </View>
     );
     const tableData = [];
-    for (let i = 0; i < 30; i += 1) {
+
+    for (let i = 0; i < props.food.length; i += 1) {
       const rowData = [];
       for (let j = 0; j < 3; j += 1) {
-        if(j==0){
-          rowData.push(elementFood("https://www.dododex.com/media/item/Simple_Kibble.png","simple Kibble"));
+        if (j == 0) {
+          rowData.push(elementFood(props.food[i].uri, props.food[i].name));
         }
-        else{
+        else {
           rowData.push(props.content);
         }
-        
+
       }
       tableData.push(rowData);
     }
+    console.log(tableData);
     this.state = {
       tableHead: ['Food', 'Max', 'Time'],
-      table:tableData
+      table: tableData
     }
   }
 
   render() {
+    console.log(this.props.food);
     const state = this.state;
-    const tableData =state.table
+    const tableData = state.table
 
     return (
       <View style={styles.container}>
@@ -99,7 +102,7 @@ const styles = StyleSheet.create({
   image: {
     height: screenDimensions.height * 0.04,
     width: screenDimensions.width * 0.08,
-},
+  },
   topText: {
     textAlign: 'center',
     fontWeight: "bold",

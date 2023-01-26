@@ -24,6 +24,7 @@ const app = initializeApp(firebaseConfig)
 const db = getFirestore(app)
 
 export default class Fire {
+
   getDinos (callback) {
     const q = query(collection(db, 'Dinos'), orderBy('name', 'asc'))
     onSnapshot(q, snapshot => {
@@ -34,7 +35,36 @@ export default class Fire {
       callback(dinos)
     })
   }
-
+getKibble(callback){
+  const q = query(collection(db, 'Kibbles'), orderBy('name', 'asc'))
+  onSnapshot(q, snapshot => {
+    let kibbles = []
+    snapshot.forEach(doc => {
+      kibbles.push({ id: doc.id, ...doc.data() })
+    })
+    callback(kibbles)
+  })
+}
+getVegies(callback){
+  const q = query(collection(db, 'Vegies'), orderBy('name', 'asc'))
+  onSnapshot(q, snapshot => {
+    let vegies = []
+    snapshot.forEach(doc => {
+      vegies.push({ id: doc.id, ...doc.data() })
+    })
+    callback(vegies)
+  })
+}
+getMeats(callback){
+  const q = query(collection(db, 'Meats'), orderBy('name', 'asc'))
+  onSnapshot(q, snapshot => {
+    let meats = []
+    snapshot.forEach(doc => {
+      meats.push({ id: doc.id, ...doc.data() })
+    })
+    callback(meats)
+  })
+}
   addDino (dino) {
     addDoc(collection(db, 'Dinos'), dino)
   }

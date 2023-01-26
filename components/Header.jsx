@@ -7,7 +7,7 @@ import { Dimensions } from 'react-native';
 const screenDimensions = Dimensions.get('screen');
 export default function Header(props) {
     const [isVisible, setIsVisible] = useState(false)
-    
+
     return (
 
         <View style={[myStyles.container]}>
@@ -59,13 +59,13 @@ const myStyles = StyleSheet.create({
     textButtonFirst: {
         fontWeight: "bold",
         color: '#7EB488',
-        fontSize: screenDimensions.width*0.063,
+        fontSize: screenDimensions.width * 0.063,
         padding: 2.5
     },
     textButtonSecond: {
         fontWeight: "bold",
         color: '#7EB488',
-        fontSize: screenDimensions.width*0.051,
+        fontSize: screenDimensions.width * 0.051,
         padding: 2.5
     },
     container: {

@@ -3,39 +3,37 @@ import React from 'react'
 import CustomButton from './CustomButton';
 import { Dimensions } from 'react-native';
 import Header from './Header';
-import Fire from 'C:/Users/omarh/OneDrive/Documents/GitHub/Dododex/Fire';
+import Fire from '../Fire';
 import { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 const screenDimensions = Dimensions.get('screen');
 
-export default function DinoList({handleUriChange, navigation,makeInvisible }) {
+export default function DinoList(props) {
+    const navigation = useNavigation();
     const [dinos, setDinos] = useState([]);
     const [loading, setLoding] = useState(true);
-    const base =new Fire();
-    base.getDinos(dinos => {
-        setDinos(dinos);
-        setLoding(false); 
-      })
-      
+
+    useEffect(() => {
+        const base = new Fire();
+        base.getDinos(dinos => {
+            setDinos(dinos);
+            setLoding(false);
+        })
+    }, [])
+
     return (
         <View style={myStyles.container}>
-            {handleUriChange == null ?
+            {props.handleUriChange == null && (
                 <Header moveTameDione={() => navigation.navigate("TameDione")} moveHome={() => navigation.navigate("Home")} />
-                : null}
-
+            )}
             <TextInput style={myStyles.input} />
-
             <ScrollView >
-
                 <View style={myStyles.imageContainer}>
-                    {dinos.map(dino => {
-                        <CustomButton event={()=>console.log(dino.name)} name={dino.name} uri={dino.uri}/>
-                    })}
-                    <CustomButton makeInvisible={makeInvisible} event={handleUriChange} name="Pteranodon" uri="https://www.dododex.com/media/creature/pteranodon.png" />
-                    <CustomButton makeInvisible={makeInvisible} event={handleUriChange} name="Triceratops" uri="https://www.dododex.com/media/creature/triceratops.png" />
+                    {dinos.map(dino => (
+                        <CustomButton key={dino.id} makeInvisible={props.makeInvisible} event={props.handleUriChange} name={dino.name} uri={dino.uri} />
+                    ))}
                 </View>
-
-
             </ScrollView>
 
         </View>

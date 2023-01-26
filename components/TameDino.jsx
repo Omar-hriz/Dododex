@@ -1,7 +1,8 @@
-import { View, StyleSheet, Modal, TextInput } from 'react-native'
-import { useState } from 'react';
+import { View, StyleSheet, Modal, TextInput, ActivityIndicator } from 'react-native'
+import { useEffect, useState } from 'react';
 import React from 'react'
 import Header from './Header';
+import Fire from '../Fire';
 import { Dimensions, TouchableOpacity, Image, Text } from 'react-native';
 import FoodTable from './FoodTable';
 import AddButton from './AddButton';
@@ -9,43 +10,82 @@ import DinoList from './DinoList';
 
 const screenDimensions = Dimensions.get('screen');
 
-export default function TameDino({navigation}) {
-    const [isListVisible, setisListVisible] = useState(false)
-    const [uri, setUri] = useState("https://www.dododex.com/media/creature/raptor.png")
+export default function TameDino({ navigation }) {
+    const [isListVisible, setisListVisible] = useState(false);
+    const [dinos, setDinos] = useState([]);
+    const [uri, setUri] = useState("https://www.dododex.com/media/creature/raptor.png");
+    const [food, setFood] = useState([]);
+    const [kibble, setkibble] = useState("");
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        const base = new Fire();
+        base.getDinos(dinos => {
+            setDinos(dinos);
+            let myDino; 
+            for(let i = 0;i<dinos.length;i += 1){
+                console.log(dinos[i].uri);   
+                if(dinos[i].uri == uri ){
+                    myDino = dinos[i];    
+                    break; 
+                }
+            }
+            if(myDino.diet =="Meats"){
+                base.getMeats(food => {
+                    setFood(food);
+                    setLoading(false);
+                    console.log(food); 
+                });
+            }else{
+                base.getVegies(food => {
+                    setFood(food);
+                    setLoading(false);
+                    console.log(food); 
+                });
+            }  
+             
+        });
+    }, [uri]);
+    
     return (
-       
-            <View style={myStyles.container}>
 
-            <Header moveTameDione={() =>navigation.navigate("TameDione")} moveHome={() =>navigation.navigate("Home")}/>
+        <View style={myStyles.container}>
+            {loading && <ActivityIndicator/>}
+            { !loading && <> 
+            <Header moveTameDione={() => navigation.navigate("TameDione")} moveHome={() => navigation.navigate("Home")} />
 
-                <TouchableOpacity style={myStyles.buttoncontainer} onPress={() => setisListVisible(true)}>
-                    <Image
-                        source={{ uri: uri }}
-                        style={myStyles.image}
-                        resizeMode="contain"
-                    />
-                </TouchableOpacity>
+            <TouchableOpacity style={myStyles.buttoncontainer} onPress={() => setisListVisible(true)}>
+                <Image
+                    source={{ uri: uri }}
+                    style={myStyles.image}
+                    resizeMode="contain"
+                />
+            </TouchableOpacity>
 
-                <Modal visible={isListVisible}>
-                    <DinoList makeInvisible={()=>setisListVisible(false)} handleUriChange={newUri => setUri(newUri)}/>
-                </Modal>
+            <Modal visible={isListVisible}>
+                <DinoList makeInvisible={() => setisListVisible(false)} handleUriChange={newUri => setUri(newUri)} />
+            </Modal>
 
-                <View>
-                    <TextInput style={myStyles.input} />
-                   <AddButton content="Calculate"/>
-                </View>
-
-                <View style={myStyles.textContainer}>
-                    <Text style={myStyles.title}>Taming</Text>
-                </View>
-
-                <FoodTable content="123"/>
-
+            <View>
+                <TextInput style={myStyles.input} />
+                <AddButton content="Calculate" />
             </View>
-       
+
+            <View style={myStyles.textContainer}>
+                <Text style={myStyles.title}>Taming</Text>
+            </View>
+
+            <FoodTable food={food} content="123" />
+            </>}
+
+        </View>
+
 
     )
 }
+
+
+
 const myStyles = StyleSheet.create({
     title: {
         marginTop: screenDimensions.height * 0.005,
@@ -92,7 +132,7 @@ const myStyles = StyleSheet.create({
         borderColor: '#E57A44',
         color: "#7EB488",
         fontWeight: "bold",
-        textAlign:"center",
+        textAlign: "center",
         backgroundColor: "#E57A44",
         borderRadius: screenDimensions.height * 0.05,
     },
