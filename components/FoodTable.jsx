@@ -18,32 +18,56 @@ export default class FoodTable extends Component {
         <Text style={styles.imageText}>{name}</Text>
       </View>
     );
+    
     const tableData = [];
-
-    for (let i = 0; i < props.food.length; i += 1) {
+    for (let i = 0; i < props.content.length; i += 1) {
       const rowData = [];
       for (let j = 0; j < 3; j += 1) {
         if (j == 0) {
-          rowData.push(elementFood(props.food[i].uri, props.food[i].name));
+          rowData.push(elementFood(props.content[i].uri, props.content[i].name));
         }
-        else {
-          rowData.push(props.content);
+        if(j==1) {
+          rowData.push(props.content[i].max);
+        }else{
+          rowData.push(props.content[i].seconds);
         }
-
       }
       tableData.push(rowData);
     }
-    console.log(tableData);
     this.state = {
       tableHead: ['Food', 'Max', 'Time'],
-      table: tableData
     }
   }
 
   render() {
-    console.log(this.props.food);
     const state = this.state;
-    const tableData = state.table
+    const tableData = [];
+
+    const elementFood = (uri, name) => (
+      <View style={styles.elementcontainer}>
+        <Image
+          source={{ uri: uri }}
+          style={styles.image}
+          resizeMode="contain"
+        />
+        <Text style={styles.imageText}>{name}</Text>
+      </View>
+    );
+
+    for (let i = 0; i < this.props.content.length; i += 1) {
+      const rowData = [];
+      for (let j = 0; j < 3; j += 1) {
+        if (j == 0) {
+          rowData.push(elementFood(this.props.content[i].uri, this.props.content[i].name));
+        }
+        else if(j==1) {
+          rowData.push(this.props.content[i].max);
+        }else{
+          rowData.push(this.props.content[i].seconds);
+        }
+      }
+      tableData.push(rowData);
+    }
 
     return (
       <View style={styles.container}>

@@ -12,19 +12,26 @@ export default function DinoModal(props) {
         <Modal visible={props.isModalVisible}>
             <View style={myStyles.container}>
 
-                <DinoForm
-                    handleNameChange={newName => setName(newName)}
-                    handlediscriptionChange={newDiscription => setDiscription(newDiscription)}
-                    name={name}
-                    discription={discription}
-                />
+                {props.dino.des == "" && (
+                    <DinoForm
+                        handleNameChange={newName => setName(newName)}
+                        handlediscriptionChange={newDiscription => setDiscription(newDiscription)}
+                        name={name}
+                        discription={discription}
+                    />
+                )}
 
-                <AddButton content="Add Dino" onPress={() => console.log(name + " that " + discription)} />
+                {props.dino.des != "" && (
+                    <Text style={myStyles.h2}>{props.dino.des}</Text>
+
+                )}
+                {props.dino.des == "" && (
+                    <AddButton content="Add Des" onPress={() => console.log(name + " that " + discription)} />
+                )}
+
                 <AddButton content="Close" onPress={props.onClose} />
-                <ScrollView>
-                    <CustomButton name="ptera" uri="https://www.dododex.com/media/creature/pteranodon.png" />
-                    <CustomButton name="" uri="https://www.dododex.com/media/creature/triceratops.png" />
-                </ScrollView>
+
+                <CustomButton name={props.dino.name} uri={props.dino.uri} />
 
             </View>
         </Modal>
@@ -35,5 +42,13 @@ const myStyles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: "#E3D985",
+    },
+    h2: {
+        fontSize:20,
+        fontWeight:"bold",
+        color: '#7EB488',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 });

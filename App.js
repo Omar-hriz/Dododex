@@ -5,6 +5,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Fire from './Fire';
 import { useEffect, useState } from 'react';
+import { View, Text } from 'react-native'
+import React from 'react'
+import Home from './components/Home';
+
+
+
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -14,7 +20,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen
           name='Home'
-          component={DinoList}
+          component={Home}
           options={{ headerShown: false }}
         />
 

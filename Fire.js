@@ -25,7 +25,7 @@ const db = getFirestore(app)
 
 export default class Fire {
 
-  getDinos (callback) {
+  getDinos(callback) {
     const q = query(collection(db, 'Dinos'), orderBy('name', 'asc'))
     onSnapshot(q, snapshot => {
       let dinos = []
@@ -35,45 +35,45 @@ export default class Fire {
       callback(dinos)
     })
   }
-getKibble(callback){
-  const q = query(collection(db, 'Kibbles'), orderBy('name', 'asc'))
-  onSnapshot(q, snapshot => {
-    let kibbles = []
-    snapshot.forEach(doc => {
-      kibbles.push({ id: doc.id, ...doc.data() })
+  getKibbles(callback) {
+    const q = query(collection(db, 'Kibbles'), orderBy('name', 'asc'))
+    onSnapshot(q, snapshot => {
+      let kibbles = []
+      snapshot.forEach(doc => {
+        kibbles.push({ id: doc.id, ...doc.data() })
+      })
+      callback(kibbles)
     })
-    callback(kibbles)
-  })
-}
-getVegies(callback){
-  const q = query(collection(db, 'Vegies'), orderBy('name', 'asc'))
-  onSnapshot(q, snapshot => {
-    let vegies = []
-    snapshot.forEach(doc => {
-      vegies.push({ id: doc.id, ...doc.data() })
+  }
+  getVegies(callback) {
+    const q = query(collection(db, 'Vegies'), orderBy('name', 'asc'))
+    onSnapshot(q, snapshot => {
+      let vegies = []
+      snapshot.forEach(doc => {
+        vegies.push({ id: doc.id, ...doc.data() })
+      })
+      callback(vegies)
     })
-    callback(vegies)
-  })
-}
-getMeats(callback){
-  const q = query(collection(db, 'Meats'), orderBy('name', 'asc'))
-  onSnapshot(q, snapshot => {
-    let meats = []
-    snapshot.forEach(doc => {
-      meats.push({ id: doc.id, ...doc.data() })
+  }
+  getMeats(callback) {
+    const q = query(collection(db, 'Meats'), orderBy('name', 'asc'))
+    onSnapshot(q, snapshot => {
+      let meats = []
+      snapshot.forEach(doc => {
+        meats.push({ id: doc.id, ...doc.data() })
+      })
+      callback(meats)
     })
-    callback(meats)
-  })
-}
-  addDino (dino) {
+  }
+  addDino(dino) {
     addDoc(collection(db, 'Dinos'), dino)
   }
-S
-  updateDino (dino) {
+  S
+  updateDino(dino) {
     updateDoc(doc(db, 'Dinos', dino.id), dino)
   }
 
-  deleteDino (dino) {
+  deleteDino(dino) {
     deleteDoc(doc(db, 'Dinos', dino.id))
   }
 }

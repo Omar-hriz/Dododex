@@ -1,7 +1,6 @@
-import { View, TextInput, StyleSheet, ScrollView } from 'react-native'
+import { View, TextInput, StyleSheet, ScrollView, Dimensions } from 'react-native'
 import React from 'react'
 import CustomButton from './CustomButton';
-import { Dimensions } from 'react-native';
 import Header from './Header';
 import Fire from '../Fire';
 import { useEffect, useState } from 'react';
@@ -12,25 +11,32 @@ const screenDimensions = Dimensions.get('screen');
 export default function DinoList(props) {
     const navigation = useNavigation();
     const [dinos, setDinos] = useState([]);
-    const [loading, setLoding] = useState(true);
+    const [filteredDinos, setFilteredDinos] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const base = new Fire();
         base.getDinos(dinos => {
             setDinos(dinos);
-            setLoding(false);
+            setFilteredDinos(dinos);
+            setLoading(false);
         })
     }, [])
+
+    const handleFilter = (searchedDino) => {
+        const newListDinos = dinos.filter((dino) => dino.name.toLowerCase().includes(searchedDino.toLowerCase()));
+        setFilteredDinos(newListDinos);
+    }
 
     return (
         <View style={myStyles.container}>
             {props.handleUriChange == null && (
                 <Header moveTameDione={() => navigation.navigate("TameDione")} moveHome={() => navigation.navigate("Home")} />
             )}
-            <TextInput style={myStyles.input} />
+            <TextInput key="searchbar" placeholder='Rechercher' onChangeText={handleFilter} style={myStyles.input} />
             <ScrollView >
                 <View style={myStyles.imageContainer}>
-                    {dinos.map(dino => (
+                    {filteredDinos.map(dino => (
                         <CustomButton key={dino.id} makeInvisible={props.makeInvisible} event={props.handleUriChange} name={dino.name} uri={dino.uri} />
                     ))}
                 </View>
